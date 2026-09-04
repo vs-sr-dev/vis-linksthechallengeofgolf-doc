@@ -1,0 +1,36 @@
+# The object itself, and everything derived from it. No bytes of the product
+# are published in this repository: hashes yes, bytes no.
+_work/
+_pre/
+prompt.txt
+
+# The disc image and its cue sheet. Both names contain spaces and hyphens, so
+# they are listed explicitly as well as by extension, and the ignore rule is
+# verified in both directions with `git check-ignore -v --no-index` plus a
+# positive control that must NOT be ignored.
+Links - The Challenge of Golf (USA).bin
+Links - The Challenge of Golf (USA).cue
+
+*.bin
+*.cue
+*.iso
+*.exe
+*.lz
+*.LZ
+*.crs
+*.CRS
+*.scr
+*.SCR
+*.tat
+*.TAT
+*.cfg
+*.CFG
+*.png
+*.wav
+*.mld
+*.blk
+*.pat
+*.col
+
+__pycache__/
+*.pyc
