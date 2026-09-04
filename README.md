@@ -32,7 +32,7 @@ and four new tools; no assets, no image, no executable.
 | thesis | **43.2720 %** of file bytes is recorded PCM; 41.0391 % distinct; 25.0908 % of the raw image |
 | the game test | **4 of 4** on the amendment proposed here; 3 of 4 on the original wording |
 | protection | **0 hits on 11 markers**, over 15 files and again over 320 members |
-| score | inherited **13.00 / 13.00**; open **19.50 / 24.50** |
+| score | inherited **13.00 / 13.00**; open **19.25 / 24.50** |
 
 ## What this session found that was not known
 
@@ -54,6 +54,12 @@ and four new tools; no assets, no image, no executable.
   Windows 3.1 chime — confirmed three independent ways.
 * **The disc's own interface asks the player to swap in another Course CD**, on
   a platter with room for 866 more courses.
+* **`TITLE.SCR` is a 640 x 400 picture plus a separate 640 x 22 strip** reading
+  `Press BUTTON (A) to Continue`, and it carries `(C) 1992 ACCESS SOFTWARE INC`
+  drawn into the artwork — the only year anywhere on the disc outside a date
+  field. Its bytes are **not palette indices**: index 0 forms 45 pure blocks
+  whose true colours run from orange through black to blue and magenta, and
+  every byte in an even column has bit 7 clear, 128,000 of 128,000.
 * **Sector 1667 is the only sector in the image whose reserved field is
   non-zero and whose P and Q parity both fail**, and it is still unexplained.
 
@@ -75,7 +81,7 @@ and four new tools; no assets, no image, no executable.
 | [11 — the thesis](docs/11-the-thesis.md) | the first VIS entry outside the nineties |
 | [12 — privacy](docs/12-privacy.md) | three corporate names, one first name in a filename, no user state |
 | [13 — leftovers](docs/13-leftovers.md) | what is described and not explained |
-| [14 — corrections and the score](docs/14-corrections-and-scoring.md) | twelve corrections, six of them mine |
+| [14 — corrections and the score](docs/14-corrections-and-scoring.md) | fourteen corrections, eight of them mine |
 
 ## Tools
 

@@ -33,6 +33,25 @@ string table, and were read out of the rendered pixels of `CRSVIEW.MLD`:
 **`PGA TOUR`** and **`SHEARSON LEHMAN HUTTON OPEN`**. Both are organisations,
 both are drawn into artwork Access Software shipped, both are P.1.
 
+**And a sixth, which is the only year on the disc outside a date field.**
+`TITLE.SCR` carries, drawn into the artwork at rows 366–394 of its 640 × 400
+image and legible once the low five bits of each byte are rendered as
+luminance:
+
+    (C) 1992 ACCESS SOFTWARE INC
+
+That is worth putting beside the finding in
+[08-the-executable.md](08-the-executable.md) that `GOLF.EXE` contains **no
+`Copyright`, no `Access`, and no match for `19[0-9][0-9]` in 157,780 bytes**.
+The program carries no attribution at all; the title screen carries it in
+pixels. Both statements are measurements and they are not in tension — this is
+simply where this developer put the credit.
+
+The same file carries one more line of drawn text, in a 640 × 22 strip stored
+after the image: **`Press BUTTON (A) to Continue`**. It names the console's
+controller and it is the only reference to VIS input hardware found anywhere on
+the disc.
+
 ## P.3 — personal names, which is not "none"
 
 The last five sessions that predicted *no personal names* were wrong twice, and

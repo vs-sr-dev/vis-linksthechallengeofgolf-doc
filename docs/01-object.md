@@ -54,7 +54,7 @@ now, all 320 members decode, and the container tiles with residue 0.
 |---|---:|---:|---|---|
 | `/CONTROL.TAT` | 474 | 35 | 1992-10-19 10:32:36 | Tandy vendor block, sixth pressing compared |
 | `/GOLF.EXE` | 157,780 | 36 | 1992-10-22 16:50:58 | real-mode DOS MZ, 268 relocations |
-| `/TITLE.SCR` | 270,098 | 114 | 1992-10-13 08:58:22 | 640-wide raster, encoding **not identified** |
+| `/TITLE.SCR` | 270,098 | 114 | 1992-10-13 08:58:22 | the title screen: a 640 x 400 raster plus a 640 x 22 strip; byte encoding **not identified** |
 | `/LINKS.CFG` | 14 | 246 | 1992-09-29 09:24:32 | shipped configuration, 12 of 14 bytes shared with the MS-DOS release |
 | `/GRAPHICS.LZ` | 66,936 | 247 | 1992-10-16 07:46:40 | `MDmd`, 14 members: UI screens and help |
 | `/SOUNDW.LZ` | 891,212 | 280 | 1992-07-01 16:56:36 | `MDmd`, **97 RIFF WAVE files** |

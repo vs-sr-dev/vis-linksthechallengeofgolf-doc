@@ -1,8 +1,8 @@
-# 14 — corrections, and the score: fourteen inherited clauses held and five open ones did not
+# 14 — corrections, and the score: fourteen inherited clauses held and eleven open ones did not
 
-*Measure: **inherited 13.00 of 13.00 predicted; open 19.50 of 24.50
+*Measure: **inherited 13.00 of 13.00 predicted; open 19.25 of 24.50
 predicted.** The two totals are never summed. The tenth point of the
-calibration series is **+5.00** — predicted minus obtained on the open column.
+calibration series is **+5.25** — predicted minus obtained on the open column.
 Both counts are produced by `tools/predcount.py` and by the table-summing
 command printed below, not by adding up by hand.*
 
@@ -62,7 +62,39 @@ The figure 0.55 % would need a 623,709,091-byte disc, which does not exist. The
 corrected figure and its denominator are in
 [11-the-thesis.md](11-the-thesis.md).
 
-**6. `predcount.py` failed on its first run, and the failure was its own.** It
+**6. `TITLE.SCR`'s declared height was called wrong, and it was right.** The
+first pass noticed that 270,098 − 18 = 270,080 = 640 × 422 and concluded that
+the header's declared height of 400 "is not the number of rows present". The
+header is correct: the file is a 640 × 400 picture **plus a separate 640 × 22
+raster** holding the line `Press BUTTON (A) to Continue`, which the game draws
+over the middle of the screen at run time. 18 + 256,000 + 14,080 = 270,098.
+
+The error had a specific shape worth naming: **an arithmetic identity was
+allowed to overrule a declared field.** 640 × 422 is exact and seductive, and
+it was taken as evidence against the header rather than as a question about
+what the extra rows were. The owner of this machine caught it by recognising
+that the prompt appears mid-screen in the running game and not at the bottom.
+
+**7. A metric of my own said the picture was not a picture, and it was
+wrong.** Having found that no palette separated from the controls, this session
+measured the mean number of distinct indices in each 8 × 8 block: `TITLE.SCR`
+gives **37.6 of 64**, against **11.7** for the disc's known dithered photograph
+and **56.8** for uniform random bytes, and concluded that *"the pixel data is
+NOT a plain 8-bit raster; no palette will fix it."*
+
+That conclusion was false. Rendered through four different packed-RGB
+readings, the owner of this machine could see sky, palm trees, a green, the
+logo and the text in every one of them — **the content is coherent and only the
+colours are wrong.** The metric failed because this artwork is error-diffusion
+dithered from a 24-bit source across the whole 256-entry palette, which is a
+legitimate way for an image to use 37 indices in an 8 × 8 block.
+
+The lesson is not that the metric is useless; it is that **a statistic
+calibrated on one specimen of a class was applied to another specimen of the
+same class and mistaken for a definition.** One known-good photograph is not a
+distribution.
+
+**8. `predcount.py` failed on its first run, and the failure was its own.** It
 terminated the last clause at end-of-document, so C46 absorbed the closing
 section — which contains the words `method` and `content` — and it reported a
 duplicate tag the document did not have. Fixed by terminating a clause at the
@@ -71,35 +103,35 @@ and then gets quietly patched has taught nothing.**
 
 ### Inherited, and found wrong
 
-**7. `MDmd` is not "an archive with a directory".** The pre-briefing's phrase
+**9. `MDmd` is not "an archive with a directory".** The pre-briefing's phrase
 describes the seven 1992 files and misses the format. It is a recursive node
 tree with a 122-byte header at every depth, and two of the nine files have no
 directory at all.
 
-**8. The 17-byte stride is 13 + 4, not 12 + 5.** The pre-briefing derived 17
+**10. The 17-byte stride is 13 + 4, not 12 + 5.** The pre-briefing derived 17
 arithmetically and reasoned that "a 17-byte stride and a 12-byte name leaves
 five bytes per entry for an offset and a size", flagging it correctly as an
 inference. The measured record is **13 bytes of NUL-padded name and a 4-byte
 little-endian absolute offset**. There is no size field; a member's size comes
 from its own header.
 
-**9. The byte at +24 is a compression flag, not a generation marker.** The
+**11. The byte at +24 is a compression flag, not a generation marker.** The
 pre-briefing's observation — `01` on exactly the two pre-1992 files, `00` on the
 seven 1992 ones, 9 of 9 — is correct and its explanation is not. All nine of
 `GOLF1.LZ`'s children carry `01` and were written the same day as their parent.
 See [04-the-container.md](04-the-container.md).
 
-**10. `protscan.py` has eleven markers, not nine.** The brief for this session
+**12. `protscan.py` has eleven markers, not nine.** The brief for this session
 said nine and instructed that they be counted rather than inherited. Counted
 out of `MARKERS` at lines 23–33: **eleven**, plus one positive control. The
 brief *before* this one said eleven and was right.
 
-**11. Three repositories are not where the brief says.** `vis-wolf3d\` and
+**13. Three repositories are not where the brief says.** `vis-wolf3d\` and
 `vis-synth\` do not exist under those names anywhere on this machine;
 `vis-fileviewer` is in `D:\Homebrew5\`, not `D:\Homebrew7\`. Also present and
 unmentioned: `D:\Homebrew5\vis-finalfantasy` and `D:\Homebrew4\VIS`.
 
-**12. `mode1.py` prints its zero-run list twice.** A cosmetic defect in an
+**14. `mode1.py` prints its zero-run list twice.** A cosmetic defect in an
 inherited tool; the runs are correct and each appears two times in `--census`
 output. Left in place and recorded rather than patched mid-session.
 
@@ -160,7 +192,7 @@ is an interpretation the same document attached to the same figure.
 | C24 | hit | 0.5 | 0.5 | 97 RIFF WAVE, 8-bit PCM |
 | C25 | **miss** | 0.0 | 0.5 | predicted opaque names; they are `ACE`, `SPLASH`, `GRETEAGL` |
 | C26 | hit | 0.5 | 0.5 | course geometry; names carry digit pairs |
-| C27 | hit | 0.5 | 0.5 | a raster, and the opening holds 640 / 400 / 8, not a magic |
+| C27 | half | 0.25 | 0.5 | the opening does hold 640 / 400 / 8 — but the file is **two** rasters, and its bytes are not palette indices |
 | C28 | hit | 0.5 | 0.5 | audio played and pictures rendered and shown |
 | C29 | hit | 1.0 | 1.0 | 89 names verbatim, 263 of 318 with templates |
 | C30 | **miss** | 0.0 | 0.5 | predicted a personal name in `GOLF.EXE`; nineteen needles, all zero |
@@ -180,7 +212,7 @@ is an interpretation the same document attached to the same figure.
 | C44 | hit | 0.5 | 0.5 | `_work` 12,535,929 B = 12.5 MB, under 40 |
 | C45 | hit | 1.0 | 1.0 | 0 findings, three controls fire, run twice; **418** tools, not the 414 predicted |
 | C46 | hit | 1.0 | 1.0 | 15 numbered documents |
-| **total** | **22 hit, 3 half, 7 miss** | **19.50** | **24.50** | |
+| **total** | **21 hit, 4 half, 7 miss** | **19.25** | **24.50** | |
 
 The totals were summed by command, not by hand:
 
@@ -199,10 +231,10 @@ The totals were summed by command, not by hand:
 
     clause rows matched: 46
     inherited  14 clauses  obtained 13.00  predicted 13.00  delta +0.00
-    open       32 clauses  obtained 19.50  predicted 24.50  delta +5.00
-    verdicts: {'hit': 36, 'miss': 7, 'half': 3}
+    open       32 clauses  obtained 19.25  predicted 24.50  delta +5.25
+    verdicts: {'hit': 35, 'miss': 7, 'half': 4}
       open method   10 clauses  obtained  7.50  predicted  8.50  rate  88.2 %
-      open content  22 clauses  obtained 12.00  predicted 16.00  rate  75.0 %
+      open content  22 clauses  obtained 11.75  predicted 16.00  rate  73.4 %
 
 **The command caught two errors in the hand tally, which is the fourth session
 running that it has.** The open column's verdict counts were written as
@@ -237,9 +269,9 @@ P.4 half is sound.
 
 As *predicted minus obtained* on the open column:
 
-    +10.5  +7.5  +5.0  +2.0  -14.0  -2.0  +9.0  0.0  +19.75  **+5.00**
+    +10.5  +7.5  +5.0  +2.0  -14.0  -2.0  +9.0  0.0  +19.75  **+5.25**
 
-**The tenth point is +5.00.** Read against the ninth (+19.75, the worst of the
+**The tenth point is +5.25.** Read against the ninth (+19.75, the worst of the
 series, and the one this session was warned about) that is a fourfold
 improvement, and the reason is legible in the table: the specific prescription
 worked and the general one was not needed.
@@ -253,9 +285,9 @@ the outcome by category is:
 | | clauses | obtained | predicted | rate |
 |---|---:|---:|---:|---:|
 | open `method` | 10 | 7.50 | 8.50 | **88.2 %** |
-| open `content` | 22 | 12.00 | 16.00 | **75.0 %** |
+| open `content` | 22 | 11.75 | 16.00 | **73.4 %** |
 
-**88.2 % against 75.0 %.** The gap the prescription describes is real and it
+**88.2 % against 73.4 %.** The gap the prescription describes is real and it
 reproduces: the previous session measured 84.8 % and 68.3 % on a wholly
 unrelated object, and this one lands within four and seven points of those.
 `method` and `content` are still not the same kind of claim, and the effect is
