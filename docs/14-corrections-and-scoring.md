@@ -1,4 +1,4 @@
-# 14 — corrections, and the score: fourteen inherited clauses held and eleven open ones did not
+# 14 — corrections, and the score: fourteen inherited clauses held, eleven open ones did not, and five arrived later from the sibling
 
 *Measure: **inherited 13.00 of 13.00 predicted; open 19.25 of 24.50
 predicted.** The two totals are never summed. The tenth point of the
@@ -7,6 +7,27 @@ Both counts are produced by `tools/predcount.py` and by the table-summing
 command printed below, not by adding up by hand.*
 
 ---
+
+## Part zero — five items applied from the sibling, in a later session
+
+**`pc-linksthechallengeofgolf-doc` opened the MS-DOS release of this game and
+wrote five items for this repository. They stood unapplied for five sessions.**
+All five are now in, and **each was re-measured here** rather than accepted on
+that repository's word — which turned out to matter on three of the five.
+
+| | where | outcome |
+|---|---|---|
+| **C-1** | `docs/13-leftovers.md` | **accepted, and the offset was wrong on BOTH sides.** The 6-bit run starts at 30,745; the palette starts at **30,747**. At 30,747 entries 0–31 are pure black and entry 32 is the first colour; at 30,745 entry 0 reads (1,1,0) and the structure vanishes. **This chapter filed a palette as padding because it read two bytes early** |
+| **C-2** | `docs/13-leftovers.md` | **accepted, and the incoming figure was optimistic.** The sibling says these 76 members *"should close under the same reader"*. Re-run: **57 accepted, 19 refused, 123 records**. The model transfers; the PC build's zero-padding assumption does not |
+| **C-3** | `docs/08-the-executable.md` | **accepted.** The launcher reading is withdrawn. The sibling's text names `docs/10-against-the-collection.md`; **the sentence is in `docs/08-the-executable.md:177`** |
+| **C-4** | `docs/13-leftovers.md` | **recorded as a note, attributed, not adopted** — the eighteen absent `.PAT` cells are a boundary rather than corners, and the first name character is the row |
+| **C-5** | `docs/06-the-pictures.md` | **recorded.** `palscore.py` cannot distinguish channel order; the sum is permutation-invariant. Reported, not fixed |
+
+**Three of the five needed correcting in the act of being applied**, and none
+of the three would have been caught by pasting the suggested wording. **The
+2.87× that proves C-1 was computed on the right bytes by the sibling and the
+0.918 that buried it was computed on the wrong ones here** — two bytes apart,
+five sessions ago.
 
 ## Part one — corrections
 

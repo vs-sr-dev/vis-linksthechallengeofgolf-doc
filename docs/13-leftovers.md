@@ -141,10 +141,47 @@ here will have, and it was found by counting rather than by looking.
   zero padding**: the largest, 48,327 bytes, has exactly one distinct value,
   and the others are 81–100 % zeros with at most ten distinct values. There is
   no 6-bit palette table in the program.
-* **Not in the MS-DOS release either.** Of its 32 files, exactly one contains a
-  non-trivial ≥ 768-byte run of 6-bit values — `title.lnx` at offset 30,745,
-  770 bytes — and it is zero padding too: entry 0 reads (1,1,0) and entry 1
-  (0,0,0), and it scores 0.918 against a shuffled control at 0.937.
+* **`[corrected]` — it IS in the MS-DOS release, and this entry missed it by
+  two bytes.** The paragraph read:
+
+  > **Not in the MS-DOS release either.** Of its 32 files, exactly one contains
+  > a non-trivial ≥ 768-byte run of 6-bit values — `title.lnx` at offset 30,745,
+  > 770 bytes — and it is zero padding too: entry 0 reads (1,1,0) and entry 1
+  > (0,0,0), and it scores 0.918 against a shuffled control at 0.937.
+
+  **The run of 6-bit values begins at 30,745 and the PALETTE begins at
+  30,747.** The two are not the same offset and the difference is the whole
+  finding. Measured in this session, on `title.lnx` from
+  `pc-linksthechallengeofgolf-doc`:
+
+  ```
+  read 768 bytes at 30,745      entry 0 = (1,1,0)   first non-black entry: 0
+                                31 black entries    224 distinct
+  read 768 bytes at 30,747      entry 0 = (0,0,0)   first non-black entry: 32
+                                35 black entries    219 distinct
+  ```
+
+  **At 30,747 entries 0 to 31 are pure black and entry 32 is the first colour
+  — which is a VGA palette with its first thirty-two slots reserved.** At
+  30,745 that structure is destroyed, entry 0 reads (1,1,0), and the block
+  looks exactly like the padding this entry called it.
+
+  > **A two-byte reading error cost a palette, and the score that confirmed it
+  > — 0.918 against 0.937 — was computed on the wrong bytes.** The run of
+  > 6-bit values is the thing that was located; the palette inside it is the
+  > thing that was not.
+
+  **It was also tested against the wrong raster.** `pc-linksthechallengeofgolf-doc`
+  scores it against a 252 × 111 cell of the **PC** title screen —
+  `2.87×` better than the tightest control — where this session scored it
+  against `TITLE.SCR`, which is this disc's own file for a different machine.
+  With it, that release's sixteen `MDmd` chunks render as the PC title
+  sequence: three photographs of a golf course and nine text overlays carrying
+  `COPYRIGHT 1990 ACCESS SOFTWARE INCORPORATED` and a design-team credit list.
+
+  **What does not change: the VIS `TITLE.SCR` palette is still not found.**
+  This is the PC release's palette for the PC release's raster. The search on
+  this disc stands.
 * **Not any of the eleven palettes this disc does carry.** The eight `GIFM`
   colour tables, `TOPVIEW.COL` and `PALETTE.COL`, scored by 2 × 2 block
   smoothness against controls: best 0.8022 against a shuffled control at 0.9273
@@ -198,7 +235,7 @@ of the image is blue sea and green.** Since the lettering is index 0, **palette
 entry 0 is orange**, which is an unusual thing for entry 0 to be and is the
 sharpest constraint anyone starting from here will have.
 
-## 2. `.BLK`, 76 members, header legible and body not closing
+## 2. `.BLK`, 76 members — SOLVED by the MS-DOS release, 57 of 76
 
 The largest unopened category on the disc. Every specimen begins with two
 little-endian u16s that read as width and height, and three of five follow them
@@ -217,6 +254,54 @@ factor near two, which would fit a second plane — a mask, or a second colour
 byte — and does not fit exactly. `GOLFER.BLK` has a different shape again, and
 at 41,472 bytes for a 75 × 93 frame it holds roughly six such frames, which
 would suit an animation and is a reading and not a measurement.
+
+### `[corrected]` — `.BLK` is solved, and the header was one field out
+
+**The correction comes from `pc-linksthechallengeofgolf-doc`**, which opened
+the MS-DOS release of this game and closed 80 of its 80 `.BLK` members. It was
+written for this repository five sessions ago and applied here now, **after
+being re-run against these members rather than accepted on its word.**
+
+**The big-endian u16 is two u8 fields: a first stored column and a span
+length.** It reads as `00 <width>` exactly when a row is fully opaque, which is
+why the table above sees it as the width on three of five and why the wrong
+model survived two sessions — **a wrong reading reproduces perfectly on the
+subset where the two readings coincide.** A `.BLK` member is a sequence of
+four-byte-header records, each padded up to a 16-byte boundary.
+
+```
+python ../pc-linksthechallengeofgolf-doc/tools/cellras.py        $(find _work/members -name "*.BLK" | sort) --sequence
+
+cellras: 57 accepted, 19 refused, 76 files, 123 records
+```
+
+**Fifty-seven of 76 close completely under a reader written for another
+machine, where the model above closed on none.** That is the result and the
+category is no longer the largest unopened one on the disc.
+
+**The nineteen that refuse all fail on the same check and it is the PC
+build's assumption, not the format's.** Every one reports non-zero bytes in
+the 16-byte alignment padding, and those bytes are not noise:
+
+```
+0006_HELPSEL.BLK    00 fe 0c 5f  4e 4e 4e 4e 4e 4e 4e 4e
+0007_HELPAIM.BLK    00 fe 0c 5f  4e 4e 4e 4e 4e 4e 4e 4e
+0008_HELPSWNG.BLK   00 fe 0c 5f  4e 4e 4e 4e 4e 4e 4e 4e
+0011_POSTSHT1.BLK   00 fe 0c 5f  4e 4e 4e 4e 4e 4e 4e 4e
+0012_POSTSHT2.BLK   00 3e 0c 0f  54 54 54 54 54 54 54 54
+0009_ENTRNAME.BLK   6d 6d 6d 6d 6d 6d
+0013_QUITCONF.BLK   4e 4e 4e 4e
+```
+
+**Five members carry the identical four bytes `00 fe 0c 5f` followed by eight
+equal bytes**, and `00 fe` has exactly the shape the corrected header has — a
+first column of 0 and a span of 254. **That is another record, not padding**,
+and the PC reader stops before it because the MS-DOS build zero-fills where
+this one does not.
+
+> **So the model transfers and the padding rule does not.** The remaining work
+> is one condition in `cellras.py`, not a new format, and it is left open here
+> rather than guessed at: **19 of 76**, named above.
 
 ## 3. Sector 1667
 
@@ -325,6 +410,24 @@ and the eighteen absent cells are `00 01 02 08 10 11 20 30` and
 corners cut away is the shape of a golf course laid over a bounding box, and
 `GOLF.EXE` carrying the literal template `PATCHxx.PAT` says the program
 addresses these by coordinate rather than by index.
+
+**Two refinements from `pc-linksthechallengeofgolf-doc`, offered as a note
+rather than as a correction, and recorded here as one.** That repository opened
+the MS-DOS release of the same course and reports:
+
+- **the absent cells are not corners.** `torrey_p.crs` there holds **135 of the
+  same 153**, and the eighteen missing are *a staircase along one edge and a
+  strip down another* — **a course boundary**, which is a better description of
+  the same eighteen names than *corners* and does not change the grid;
+- **the first name character is the ROW and the second is the column**, fixed
+  there by a seam statistic at **747** against an unrelated-tile control of
+  **12,694** and the transposed reading at **7,815**. This chapter states the
+  two axes without ordering them, so nothing here is wrong — but a renderer
+  built from this page alone would have had one chance in two.
+
+**Neither was re-measured here**, because both are measurements on that
+repository's object and this one has no `.PAT` parsed to test them against.
+They are attributed, not adopted.
 
 **Not one was parsed.** Together with the `.BLK` sprites they are what a
 renderer for this game would need next.

@@ -175,14 +175,37 @@ refusing.
 ## The comparison that is coming
 
 The MS-DOS release's `golf.exe` is **60,950 bytes with 88 printable runs** —
-roughly a third the size and a third of the strings. It is a launcher; the
-game's logic lives in the other `.lz` files beside it (`select.lz`,
-`playset.lz`, `ready.lz`, `selctcrs.lz`, `selctplr.lz`, `selpract.lz`,
-`info.lz`, `golfer2.lz`), which this session did not open because they are the
-next repository's object.
+roughly a third the size and a third of the strings.
 
-**The VIS build folded the launcher and the modules into one 157,780-byte
-image.** That is consistent with a console with no configuration step, no
+**`[corrected]` — the launcher reading is withdrawn, and the string count never
+supported it.** The next repository did open those files, and:
+
+```
+python ../pc-linksthechallengeofgolf-doc/tools/entropy.py        Links_The_Challenge_Of_Golf --tree
+  golf.exe   60,950   H 7.9680        the highest of that object's 32 files
+```
+
+**`golf.exe` is packed.** Its 88 printable runs are noise from a compressed
+image, not a small program's small string table, and **0 of that release's 285
+archive member names occur in any of its six executables** where this build
+names 263 of 318. Re-tested in this session on the four of the six that are
+Microsoft EXEPACK images and therefore unpackable: **0 of 285 in the unpacked
+load images either.** `golf.exe` is not among the four and is packed by
+something still unidentified.
+
+> **A count of printable runs in a compressed file measures the compressor.**
+> The ratio 88 : 270 is not evidence about how the two releases divide their
+> code, and no conclusion should be drawn from it in either direction.
+
+**Where the rest of the MS-DOS program lives is therefore reopened**, not
+answered. The `.lz` files beside it (`select.lz`, `playset.lz`, `ready.lz`,
+`selctcrs.lz`, `selctplr.lz`, `selpract.lz`, `info.lz`, `golfer2.lz`) remain
+the candidate and remain unopened from this side.
+
+**The VIS build folded what the MS-DOS release splits across `golf.exe` and its
+`.lz` modules into one 157,780-byte image** — restated, because the previous
+wording said *the launcher and the modules* and there is no launcher reading
+left to lean on. That is consistent with a console with no configuration step, no
 `setblast.exe` and no `systype.exe` — see
 [10-against-the-collection.md](10-against-the-collection.md) — and it is why
 searching the VIS binary for feature words is not a fair test of the two

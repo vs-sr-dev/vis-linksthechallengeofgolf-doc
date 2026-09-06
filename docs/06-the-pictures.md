@@ -84,6 +84,21 @@ offset 13 is `(0,0,0)` black and the entries after it are white, which is the
 shape the artwork needs; and by the owner of this machine, who has independent
 knowledge of what these screens look like and confirmed the render.
 
+**`[1 of 1]` — and a limit of this tool, found by the repository that inherited
+it.** `pc-linksthechallengeofgolf-doc` reports that **`palscore.py` cannot
+distinguish channel order**, because the score is `mean |ΔR| + |ΔG| + |ΔB|` and
+that sum is **invariant under permuting the channels**. On that object's title
+screen all six permutations score exactly **9.01** and all six report the same
+**2.87×**, and the tool prints them as six ranked rows — which reads like a
+result and is not one.
+
+**It does not affect any reading above**, because the winner here was chosen
+between *offsets*, not between channel orders, and the RGB-against-BGR line is
+a comparison of two different offsets that happen to differ in order as well.
+**But the tool should say so or collapse the rows**, and until it does, a
+ranking of channel permutations from `palscore.py` means nothing. Reported and
+not fixed.
+
 **The margin is thin for a measurable reason.** These pictures are dithered.
 `palscore.py --flat` reports 20.51 % of 2 × 2 blocks uniform on the course
 photograph, against Sherlock's range of 15.6–82.1 % for drawn art and 2.2 % for
